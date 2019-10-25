@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html ng-app="myApp" charset="utf-8" >
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body ng-controller="mycontroller">
+    <div class="container">
+
+        <hr>
+   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" style="float: right;">
+  New user
+</button>
+        <h2>All users</h2>
+
+        <span class="clearfix"></span>
+        <hr width="100%">
+<div class="">
+  <input type="text" class="form-control" placeholder="Search for a specific user..." ng-model="username" >
+
+</div>
+<br />
+   <div class="alert alert-info" ng-if="message">
+      <a href="#" class="close"   ng-click="clearMessage()">&times;</a>
+     {{ message }}
+   </div>
+   
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>username</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | filter:username" >
+        <td>{{ $index + 1 }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{user.Email}}</td>
+        <td>
+            <button type="button" class="btn btn-info btn-lg" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPush" ng-click="selectUser(user)" >edit</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalConfirmDelete" ng-click="selectUser(user)">Delete</button> 
+         </td>
+      </tr>
+    </tbody>
+    </table>
+       </div>
+
+
+
+
+
+ <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New user</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" placeholder="Username" id="usr" name="username" ng-model="newUser.username">
+          <hr>
+          <input type="text" class="form-control" placeholder="Your Email" id="mail" name="email" ng-model="newUser.Email">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="newUser()" data-dismiss="modal">Add user</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal-->
+  
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Are you sure?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+        <i class="fas fa-times fa-4x animated rotateIn"></i>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <a href="" class="btn  btn-outline-danger" ng-click="DeleteUser()" data-dismiss="modal">Yes</a>
+        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalConfirmDelete-->
+
+<!-- Button trigger modal-->
+
+<!--Modal: modalPush-->
+<div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Edit user</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+        <i class="fas fa-user fa-4x animated rotateIn mb-4"></i>
+
+        <input type="text" class="form-control" placeholder="Username" id="usr" name="username" ng-model='clickedUser.username'>
+          <hr>
+        <input type="text" class="form-control" placeholder="Your Email" id="mail" name="email" ng-model='clickedUser.Email'>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <a href="" class="btn btn-info" ng-click="updateUser()" data-dismiss="modal">save</a>
+        <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: edit-->
+
+
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!--angular script-->
+  <script text="text/javascript" src="angular/angular.min.js"></script>
+  <!--angularjs editor-->
+  <script  type="text/javascript" src="angular/main.js"></script>
+
+  
+</body>
+</html>
